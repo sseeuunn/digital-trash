@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MainContainer = styled.div`
@@ -6,66 +7,86 @@ const MainContainer = styled.div`
   height: 100vh;
   align-items: center;
   justify-content: center;
-  padding: 0px 50px;
+  padding: 86px 50px;
+`;
 
-  .title {
-    font-family: 'Gotham';
-    font-size: 64px;
-    line-height: 150px;
+const MainTitle = styled.h1`
+  font-family: 'Spoqa Han Sans Neo';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 64px;
+  letter-spacing: -0.03em;
+  color: #000000;
+  text-align: center;
+
+  @media all and (max-width: 768px) {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    /* identical to box height */
+
     letter-spacing: -0.03em;
-    text-align: center;
 
     color: #000000;
   }
+`;
 
-  .image {
-    display: flex;
-    justify-content: center;
+const MainImage = styled.div`
+  display: flex;
+  justify-content: center;
 
-    width: 100%;
-    border: 1px solid #000000;
-    padding: 100px 0px;
+  margin-top: 93px;
+  width: 100%;
+  border: 1px solid #000000;
+  padding: 100px 0px;
 
-    font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -0.03em;
-    color: #000000;
+  font-family: 'Spoqa Han Sans Neo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19.6518px;
+  line-height: 25px;
+  letter-spacing: -0.03em;
+  color: #000000;
 
-    &__input {
-        display: none;
-    }
+  input {
+    display: none;
   }
 `;
 
 const Main: React.FC = () => {
   const [fileImages, setFileImages] = useState<string[]>([]);
   const fileImagesInput = useRef<HTMLInputElement | null>(null);
+  const history = useHistory();
 
   const onClickImages = () => {
     fileImagesInput.current?.click();
   };
 
+  const saveFileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      //   setPhotos(Array.from(event.target.files));
+
+      const files = Array.from(event.target.files).map((file) => URL.createObjectURL(file));
+      setFileImages(files);
+
+      history.push('/video');
+    }
+  };
+
   return (
     <MainContainer>
-      <h1 className="title">Do you have useless photos?</h1>
-      <div
+      <MainTitle>Do you have useless photos?</MainTitle>
+
+      <MainImage
         className="image"
         onClick={() => {
           onClickImages();
         }}
       >
         이미지
-      </div>
-      <input
-        ref={fileImagesInput}
-        className="image__input"
-        name="imageUpload"
-        type="file"
-        accept="image/*"
-        multiple
-      />
+        <input ref={fileImagesInput} className="image__input" name="imageUpload" type="file" accept="image/*" onChange={saveFileImage} />
+      </MainImage>
     </MainContainer>
   );
 };
