@@ -1,3 +1,3 @@
-# react-typescript
+# Digital Trash
 
-### [Result Link😀](https://bysxx.github.io/react-typescript)
+### [Result Link😀](https://sseeuunn.github.io/digital-trash/)
