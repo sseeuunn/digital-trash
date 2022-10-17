@@ -6,10 +6,10 @@ import Video from './pages/Video';
 function App() {
   return (
     <div>
-      <Router basename={'/'}>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
+          <Route exact path="/" component={Main} />
           <Route path="/video" component={Video} />
-          <Route path="/" component={Main} />
         </Switch>
       </Router>
     </div>
