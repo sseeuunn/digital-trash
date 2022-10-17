@@ -85,7 +85,7 @@ const Main: React.FC = () => {
         }}
       >
         이미지
-        <input ref={fileImagesInput} className="image__input" name="imageUpload" type="file" accept="image/*" onChange={saveFileImage} />
+        <input ref={fileImagesInput} className="image__input" name="imageUpload" type="file" accept="image/*" onChange={saveFileImage} multiple/>
       </MainImage>
     </MainContainer>
   );
